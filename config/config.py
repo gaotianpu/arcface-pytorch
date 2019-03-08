@@ -15,11 +15,11 @@ class Config(object):
     train_list = '/data/Datasets/webface/train_data_13938.txt'
     val_list = '/data/Datasets/webface/val_data_13938.txt'
 
-    test_root = '/data1/Datasets/anti-spoofing/test/data_align_256'
+    test_root = '/data1/Datasets/anti-spoofing/test/data_align_256'  #change
     test_list = 'test.txt'
 
-    lfw_root = '/data/Datasets/lfw/lfw-align-128'
-    lfw_test_list = '/data/Datasets/lfw/lfw_test_pair.txt'
+    lfw_root = '/data/Datasets/lfw/lfw-align-128'  #change
+    lfw_test_list = 'lfw_test_pair.txt'  #change
 
     checkpoints_path = 'checkpoints'
     load_model_path = 'models/resnet18.pth'
@@ -33,7 +33,7 @@ class Config(object):
 
     optimizer = 'sgd'
 
-    use_gpu = True  # use GPU or not
+    use_gpu = False  # use GPU or not
     gpu_id = '0, 1'
     num_workers = 4  # how many workers for loading data
     print_freq = 100  # print info every N batch

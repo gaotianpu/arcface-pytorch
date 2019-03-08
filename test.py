@@ -7,13 +7,12 @@ Created on 18-5-30 下午4:55
 from __future__ import print_function
 import os
 import cv2
-from models import *
 import torch
 import numpy as np
 import time
-from config import Config
 from torch.nn import DataParallel
-
+from config.config import Config
+from models.resnet import *
 
 def get_lfw_list(pair_list):
     with open(pair_list, 'r') as fd:
@@ -160,8 +159,9 @@ if __name__ == '__main__':
 
     model = DataParallel(model)
     # load_model(model, opt.test_model_path)
-    model.load_state_dict(torch.load(opt.test_model_path))
-    model.to(torch.device("cuda"))
+    model.load_state_dict(torch.load(opt.test_model_path, map_location='cpu' ))
+    # model.load_state_dict(torch.load(opt.test_model_path))
+    # model.to(torch.device("cuda"))
 
     identity_list = get_lfw_list(opt.lfw_test_list)
     img_paths = [os.path.join(opt.lfw_root, each) for each in identity_list]
