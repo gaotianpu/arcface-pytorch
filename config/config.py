@@ -5,7 +5,7 @@ class Config(object):
     num_classes = 13938
     metric = 'arc_margin'
     easy_margin = False
-    use_se = False
+    use_se = False  # ?
     loss = 'focal_loss'
 
     display = False
@@ -18,7 +18,7 @@ class Config(object):
     test_root = '/data1/Datasets/anti-spoofing/test/data_align_256'  #change
     test_list = 'test.txt'
 
-    lfw_root = '/data/Datasets/lfw/lfw-align-128'  #change
+    lfw_root = 'lfw-align-128'  #change
     lfw_test_list = 'lfw_test_pair.txt'  #change
 
     checkpoints_path = 'checkpoints'
