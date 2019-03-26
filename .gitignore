@@ -2,5 +2,6 @@
 *.pyc
 *.pth
 .ipynb_checkpoints/
-
+checkpoints/
 lfw-align-128/
+data/

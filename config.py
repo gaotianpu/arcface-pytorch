@@ -12,8 +12,8 @@ class Config(object):
     finetune = False
 
     train_root = 'lfw-align-128'
-    train_list = 'lfw_test_pair.txt'
-    val_list = 'lfw_test_pair.txt'
+    train_list = 'data/train_list.txt'
+    val_list = 'data/val_list.txt'
 
     test_root = '/data1/Datasets/anti-spoofing/test/data_align_256'  #change
     test_list = 'test.txt'
