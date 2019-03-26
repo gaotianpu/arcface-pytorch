@@ -1,5 +1,6 @@
 !.gitignore
 *.pyc
 *.pth
+.ipynb_checkpoints/
 
 lfw-align-128/

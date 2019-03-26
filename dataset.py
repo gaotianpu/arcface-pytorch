@@ -1,15 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
+import sys
+import cv2
 from PIL import Image
+import numpy as np
 import torch
 from torch.utils import data
-import numpy as np
-from torchvision import transforms as T
 import torchvision
-import cv2
-import sys
+from torchvision import transforms as T
 
 
-class Dataset(data.Dataset):
+class FaceDataset(data.Dataset):
 
     def __init__(self, root, data_list_file, phase='train', input_shape=(1, 128, 128)):
         self.phase = phase
@@ -19,12 +22,12 @@ class Dataset(data.Dataset):
             imgs = fd.readlines()
 
         imgs = [os.path.join(root, img[:-1]) for img in imgs]
-        self.imgs = np.random.permutation(imgs)
+        self.imgs = np.random.permutation(imgs)  #随机shuffle
 
         # normalize = T.Normalize(mean=[0.5, 0.5, 0.5],
         #                         std=[0.5, 0.5, 0.5])
 
-        normalize = T.Normalize(mean=[0.5], std=[0.5])
+        normalize = T.Normalize(mean=[0.5], std=[0.5]) #归一处理？
 
         if self.phase == 'train':
             self.transforms = T.Compose([
@@ -45,9 +48,9 @@ class Dataset(data.Dataset):
         splits = sample.split()
         img_path = splits[0]
         data = Image.open(img_path)
-        data = data.convert('L')
+        data = data.convert('L')  # ？
         data = self.transforms(data)
-        label = np.int32(splits[1])
+        label = np.int32(splits[1]) #label是什么？每个人脸的编号？
         return data.float(), label
 
     def __len__(self):
@@ -55,6 +58,7 @@ class Dataset(data.Dataset):
 
 
 if __name__ == '__main__':
+    # 训练数据的格式是什么？
     dataset = Dataset(root='/data/Datasets/fv/dataset_v1.1/dataset_mix_aligned_v1.1',
                       data_list_file='/data/Datasets/fv/dataset_v1.1/mix_20w.txt',
                       phase='test',

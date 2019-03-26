@@ -14,7 +14,7 @@ import torchvision
 from torch.nn import DataParallel
 from torch.utils.data import Dataset, DataLoader
 from skimage import io, transform
-from config.config import Config
+from config import Config
 from models.resnet import *
 
 

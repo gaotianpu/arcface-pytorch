@@ -12,7 +12,7 @@ import cv2
 import numpy as np
 import torch
 from torch.nn import DataParallel
-from config.config import Config
+from config import Config
 from models.resnet import *
 
 
@@ -30,6 +30,13 @@ def get_lfw_list(pair_list):
             data_list.append(splits[1])
     return data_list
 
+def get_feature_dict(test_list, features):
+    fe_dict = {}
+    for i, each in enumerate(test_list):
+        # key = each.split('/')[1]
+        fe_dict[each] = features[i]
+    return fe_dict
+
 
 def load_image(img_path):
     # Load an color image in grayscale
@@ -38,10 +45,11 @@ def load_image(img_path):
     if image is None:
         return None
     # https://docs.scipy.org/doc/numpy/reference/generated/numpy.dstack.html
-    # Flip array in the left/right direction.
+    # Flip array in the left/right direction. 
     # https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.fliplr.html python矩阵水平镜像
     # print( image.shape ) # (128, 128)
 
+    # np.fliplr(image) #左右对称变换
     image = np.dstack((image, np.fliplr(image)))
 
     # print( image.shape ) # (128, 128, 2)
@@ -111,14 +119,6 @@ def load_model(model, model_path):
                        v in pretrained_dict.items() if k in model_dict}
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
-
-
-def get_feature_dict(test_list, features):
-    fe_dict = {}
-    for i, each in enumerate(test_list):
-        # key = each.split('/')[1]
-        fe_dict[each] = features[i]
-    return fe_dict
 
 
 def cosin_metric(x1, x2):
